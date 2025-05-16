@@ -3,7 +3,7 @@ import React, { Fragment, useContext } from "react";
 import { ToastContext } from "./context/ToastContext";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { CircularProgress, SnackbarContent } from "@mui/material";
+import { SnackbarContent } from "@mui/material";
 
 export default function ToastComponent() {
   const { toasts, handleLikedToast, handleCloseToast, loading } =

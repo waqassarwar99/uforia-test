@@ -12,6 +12,7 @@ export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
   const [likedToasts, setLikedToasts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState(false)
 
   useEffect(() => {
     onMessage((toast) => {
@@ -28,7 +29,10 @@ export const ToastProvider = ({ children }) => {
       .catch((error) => {
         console.log(error, "server error");
         setLoading(false);
-      });
+        if(error.status === 500) {
+          setServerError(true)
+        }
+      }); 
   }, []);
 
   //updating the likedtoast array when user clicks the like button
@@ -59,8 +63,11 @@ export const ToastProvider = ({ children }) => {
         toasts,
         likedToasts,
         loading,
+        serverError,
+        setServerError,
         handleLikedToast,
         handleCloseToast,
+        
       }}
     >
       {children}

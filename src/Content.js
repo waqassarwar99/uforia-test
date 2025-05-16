@@ -2,12 +2,22 @@ import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { ToastContext } from "./context/ToastContext";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Snackbar } from "@mui/material";
 
 export default function Content() {
-  const { likedToasts, loading } = useContext(ToastContext);
+  const { likedToasts, loading, serverError,setServerError } = useContext(ToastContext);
   return (
     <Box sx={{ marginTop: 3 }}>
+      {serverError ? (
+        <Snackbar
+          open={serverError}
+          autoHideDuration={3000}
+           onClose={() => setServerError(false)}
+          message="Server Error! Please try again."
+        />
+      ) : (
+        ""
+      )}
       <Typography variant="h4">Liked Form Submissions</Typography>
       {loading ? (
         <Box
