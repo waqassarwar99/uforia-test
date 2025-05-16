@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { ToastContext } from "./ToastContext";
+import { ToastContext } from "./context/ToastContext";
 
 export default function Content() {
   const { likedToasts } = useContext(ToastContext);
@@ -24,8 +24,8 @@ export default function Content() {
               sx={{ mt: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}
             >
               <Typography>
-                {toast.data.firstName} {toast.data.lastName} (
-                {toast.data.email})
+                {toast.data.firstName} {toast.data.lastName} ({toast.data.email}
+                )
               </Typography>
             </Box>
           ))

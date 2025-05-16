@@ -4,7 +4,7 @@ import {
   onMessage,
   saveLikedFormSubmission,
   fetchLikedFormSubmissions,
-} from "./service/mockServer";
+} from "../service/mockServer";
 
 export const ToastContext = createContext();
 

@@ -1,12 +1,13 @@
 // components/ToastContainer.jsx
 import React, { Fragment, useContext } from "react";
-import { ToastContext } from "./ToastContext";
+import { ToastContext } from "./context/ToastContext";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { SnackbarContent } from "@mui/material";
 
 export default function ToastComponent() {
-  const { toasts, handleLikedToast, handleCloseToast } = useContext(ToastContext);
+  const { toasts, handleLikedToast, handleCloseToast } =
+    useContext(ToastContext);
   const action = (toast) => {
     return (
       <Fragment>
