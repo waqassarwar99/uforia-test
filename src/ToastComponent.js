@@ -8,7 +8,7 @@ import { SnackbarContent } from "@mui/material";
 export default function ToastComponent() {
   const { toasts, handleLikedToast, handleCloseToast, loading, serverError } =
     useContext(ToastContext);
-    console.log(serverError, "server error", toasts)
+    
   const action = (toast) => {
     return (
       <Fragment>

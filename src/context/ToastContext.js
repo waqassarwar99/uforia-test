@@ -43,7 +43,7 @@ export const ToastProvider = ({ children }) => {
       ...toast,
       data: { ...toast.data, liked: true },
     };
-    console.log(updated, "apui")
+
     try {
       await saveLikedFormSubmission(updated);
       setLikedToasts((prev) => [...prev, updated]);
