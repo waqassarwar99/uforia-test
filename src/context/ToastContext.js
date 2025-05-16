@@ -19,18 +19,21 @@ export const ToastProvider = ({ children }) => {
     });
 
     //fetching the previously liked posts and as fetchLikedFormSubmissions is an asynchoronous funtion which returns a promise we are using .then that if the promise was successfull store the liked toast in use state and if the server gives any error it's handled in the catch block
+    setLoading(true);
     fetchLikedFormSubmissions()
       .then((res) => {
         setLikedToasts(res.formSubmissions || []);
+        setLoading(false)
       })
       .catch((error) => {
         console.log(error, "server error");
+        setLoading(false);
       });
   }, []);
 
   //updating the likedtoast array when user clicks the like button
   const handleLikedToast = async (toast) => {
-    setLoading(true)
+    setLoading(true);
     const updated = {
       ...toast,
       data: { ...toast.data, liked: true },
@@ -38,10 +41,11 @@ export const ToastProvider = ({ children }) => {
     try {
       await saveLikedFormSubmission(updated);
       setLikedToasts((prev) => [...prev, updated]);
-      setLoading(false)
+      setLoading(false);
       handleCloseToast(updated.id);
     } catch (err) {
       console.error("Failed to like submission", err);
+      setLoading(false);
     }
   };
 
@@ -51,7 +55,13 @@ export const ToastProvider = ({ children }) => {
 
   return (
     <ToastContext.Provider
-      value={{ toasts, likedToasts, loading,handleLikedToast, handleCloseToast }}
+      value={{
+        toasts,
+        likedToasts,
+        loading,
+        handleLikedToast,
+        handleCloseToast,
+      }}
     >
       {children}
     </ToastContext.Provider>

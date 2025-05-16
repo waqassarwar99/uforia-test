@@ -10,7 +10,16 @@ export default function Content() {
     <Box sx={{ marginTop: 3 }}>
       <Typography variant="h4">Liked Form Submissions</Typography>
       {loading ? (
-        <CircularProgress  size={30} color="inherit" />
+        <Box
+          sx={{
+            height: "60vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress size={30} color="inherit" />
+        </Box>
       ) : (
         <Typography variant="body1" sx={{ fontStyle: "italic", marginTop: 1 }}>
           {likedToasts?.length === 0 ? (
@@ -35,28 +44,6 @@ export default function Content() {
           )}
         </Typography>
       )}
-      {/* <Typography variant="body1" sx={{ fontStyle: "italic", marginTop: 1 }}>
-        {likedToasts?.length === 0 ? (
-          <Typography
-            variant="body1"
-            sx={{ fontStyle: "italic", marginTop: 1 }}
-          >
-            No liked submissions yet.
-          </Typography>
-        ) : (
-          likedToasts?.map((toast) => (
-            <Box
-              key={toast.id}
-              sx={{ mt: 2, p: 2, border: "1px solid #ccc", borderRadius: 2 }}
-            >
-              <Typography>
-                {toast.data.firstName} {toast.data.lastName} ({toast.data.email}
-                )
-              </Typography>
-            </Box>
-          ))
-        )}
-      </Typography> */}
     </Box>
   );
 }

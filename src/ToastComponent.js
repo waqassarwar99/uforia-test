@@ -17,7 +17,7 @@ export default function ToastComponent() {
           onClick={() => handleLikedToast(toast)}
           disabled={loading}
         >
-           {loading ? <CircularProgress size={16} color="inherit" /> : 'Like'}
+           Like
         </Button>
         <Button
           color="inherit"
