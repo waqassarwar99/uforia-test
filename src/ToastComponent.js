@@ -6,8 +6,9 @@ import Button from "@mui/material/Button";
 import { SnackbarContent } from "@mui/material";
 
 export default function ToastComponent() {
-  const { toasts, handleLikedToast, handleCloseToast, loading } =
+  const { toasts, handleLikedToast, handleCloseToast, loading, serverError } =
     useContext(ToastContext);
+    console.log(serverError, "server error", toasts)
   const action = (toast) => {
     return (
       <Fragment>
@@ -32,7 +33,7 @@ export default function ToastComponent() {
 
   return (
     <Box>
-      {toasts?.map((toast, index) => (
+      {!serverError && toasts?.map((toast, index) => (
         <Box
           key={toast.id}
           sx={{

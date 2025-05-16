@@ -12,7 +12,7 @@ export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
   const [likedToasts, setLikedToasts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [serverError, setServerError] = useState(false)
+  const [serverError, setServerError] = useState(false);
 
   useEffect(() => {
     onMessage((toast) => {
@@ -24,15 +24,16 @@ export const ToastProvider = ({ children }) => {
     fetchLikedFormSubmissions()
       .then((res) => {
         setLikedToasts(res.formSubmissions || []);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error, "server error");
         setLoading(false);
-        if(error.status === 500) {
-          setServerError(true)
+        if (error.status === 500) {
+          setServerError(true);
+           setToasts([]);
         }
-      }); 
+      });
   }, []);
 
   //updating the likedtoast array when user clicks the like button
@@ -42,6 +43,7 @@ export const ToastProvider = ({ children }) => {
       ...toast,
       data: { ...toast.data, liked: true },
     };
+    console.log(updated, "apui")
     try {
       await saveLikedFormSubmission(updated);
       setLikedToasts((prev) => [...prev, updated]);
@@ -50,6 +52,8 @@ export const ToastProvider = ({ children }) => {
     } catch (err) {
       console.error("Failed to like submission", err);
       setLoading(false);
+      setServerError(true);
+      setToasts([])
     }
   };
 
@@ -67,7 +71,6 @@ export const ToastProvider = ({ children }) => {
         setServerError,
         handleLikedToast,
         handleCloseToast,
-        
       }}
     >
       {children}

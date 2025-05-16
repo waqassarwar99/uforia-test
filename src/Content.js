@@ -1,19 +1,31 @@
-import React, { useContext } from "react";
+import { Fragment, useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { ToastContext } from "./context/ToastContext";
-import { CircularProgress, Snackbar } from "@mui/material";
+import { Button, CircularProgress, Snackbar } from "@mui/material";
 
 export default function Content() {
-  const { likedToasts, loading, serverError,setServerError } = useContext(ToastContext);
+  const { likedToasts, loading, serverError, setServerError } =
+    useContext(ToastContext);
+  const action = (
+    <Fragment>
+      <Button
+        color="error"
+        size="small"
+        onClick={() => setServerError(false)}
+      >
+        X
+      </Button>
+    </Fragment>
+  );
   return (
     <Box sx={{ marginTop: 3 }}>
       {serverError ? (
         <Snackbar
           open={serverError}
           autoHideDuration={3000}
-           onClose={() => setServerError(false)}
           message="Server Error! Please try again."
+          action={action}
         />
       ) : (
         ""
