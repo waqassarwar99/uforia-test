@@ -11,6 +11,7 @@ export const ToastContext = createContext();
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
   const [likedToasts, setLikedToasts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     onMessage((toast) => {
@@ -29,6 +30,7 @@ export const ToastProvider = ({ children }) => {
 
   //updating the likedtoast array when user clicks the like button
   const handleLikedToast = async (toast) => {
+    setLoading(true)
     const updated = {
       ...toast,
       data: { ...toast.data, liked: true },
@@ -36,6 +38,7 @@ export const ToastProvider = ({ children }) => {
     try {
       await saveLikedFormSubmission(updated);
       setLikedToasts((prev) => [...prev, updated]);
+      setLoading(false)
       handleCloseToast(updated.id);
     } catch (err) {
       console.error("Failed to like submission", err);
@@ -48,7 +51,7 @@ export const ToastProvider = ({ children }) => {
 
   return (
     <ToastContext.Provider
-      value={{ toasts, likedToasts, handleLikedToast, handleCloseToast }}
+      value={{ toasts, likedToasts, loading,handleLikedToast, handleCloseToast }}
     >
       {children}
     </ToastContext.Provider>

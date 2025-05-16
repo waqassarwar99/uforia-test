@@ -3,10 +3,10 @@ import React, { Fragment, useContext } from "react";
 import { ToastContext } from "./context/ToastContext";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { SnackbarContent } from "@mui/material";
+import { CircularProgress, SnackbarContent } from "@mui/material";
 
 export default function ToastComponent() {
-  const { toasts, handleLikedToast, handleCloseToast } =
+  const { toasts, handleLikedToast, handleCloseToast, loading } =
     useContext(ToastContext);
   const action = (toast) => {
     return (
@@ -15,8 +15,9 @@ export default function ToastComponent() {
           color="primary"
           size="small"
           onClick={() => handleLikedToast(toast)}
+          disabled={loading}
         >
-          Like
+           {loading ? <CircularProgress size={16} color="inherit" /> : 'Like'}
         </Button>
         <Button
           color="inherit"
