@@ -9,11 +9,7 @@ export default function Content() {
     useContext(ToastContext);
   const action = (
     <Fragment>
-      <Button
-        color="error"
-        size="small"
-        onClick={() => setServerError(false)}
-      >
+      <Button color="error" size="small" onClick={() => setServerError(false)}>
         X
       </Button>
     </Fragment>
@@ -23,9 +19,10 @@ export default function Content() {
       {serverError ? (
         <Snackbar
           open={serverError}
-          autoHideDuration={3000}
+          autoHideDuration={2000}
           message="Server Error! Please try again."
           action={action}
+          onClose={() => setServerError(false)}
         />
       ) : (
         ""

@@ -1,24 +1,34 @@
 // components/ToastContainer.jsx
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { ToastContext } from "./context/ToastContext";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { SnackbarContent } from "@mui/material";
 
 export default function ToastComponent() {
-  const { toasts, handleLikedToast, handleCloseToast, loading, serverError } =
+  const { toasts, handleLikedToast, handleCloseToast } =
     useContext(ToastContext);
-    
+  const [likedIds, setLikedIds] = useState([]);
+
   const action = (toast) => {
+    const isLiked = likedIds.includes(toast.id);
+
+    const handleLike = () => {
+      setLikedIds((prev) => [...prev, toast.id]); // Add to "liking" list
+      handleLikedToast(toast).finally(() => {
+        // Optional: remove from liking list after done
+        setLikedIds((prev) => prev.filter((id) => id !== toast.id));
+      });
+    };
     return (
       <Fragment>
         <Button
           color="primary"
           size="small"
-          onClick={() => handleLikedToast(toast)}
-          disabled={loading}
+          onClick={() => handleLike()}
+          disabled={isLiked}
         >
-           Like
+          Like
         </Button>
         <Button
           color="inherit"
@@ -33,12 +43,12 @@ export default function ToastComponent() {
 
   return (
     <Box>
-      {!serverError && toasts?.map((toast, index) => (
+      {toasts?.map((toast, index) => (
         <Box
           key={toast.id}
           sx={{
             position: "fixed",
-            bottom: 20 + index * 55,
+            bottom: 20 + index * 70,
             right: 20,
             width: 400,
             zIndex: 10,
